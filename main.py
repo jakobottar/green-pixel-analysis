@@ -6,8 +6,13 @@
 # import custom module            
 from lib import gpix 
 
+# TODO: Add GUI 
+
 # points to folder containing images
-filePath = './img/'              
+# filePath = './img/'
+filePath = input("Please choose a directory: ")          
+if(filePath == ''):
+    filePath = './img/'
 
 gpix.countPix(filePath).writeCsv()
 

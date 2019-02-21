@@ -45,6 +45,7 @@ def countPix( folderLoc, save = False ):
     
     return(imgSum)
 
+# TODO: Check Speed of PIL Image.eval()
 def _analyzeImage_( fileName , save = False ):
     start = time.time() # start timer
 
