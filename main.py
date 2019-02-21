@@ -4,7 +4,7 @@
 # https://github.com/jakobottar/green-pixel-analysis
 
 # import custom module            
-import gpix 
+from lib import gpix 
 
 # points to folder containing images
 filePath = './img/'              
