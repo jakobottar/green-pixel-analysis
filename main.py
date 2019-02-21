@@ -4,16 +4,32 @@
 # https://github.com/jakobottar/green-pixel-analysis
 
 # import custom module            
-from lib import gpix 
+from lib import gpix
+from appJar import gui # appJar GUI library: http://appjar.info/
 
-# TODO: Add GUI 
+# initialize GUI
+app = gui() 
 
-# points to folder containing images
-# filePath = './img/'
-filePath = input("Please choose a directory: ")          
-if(filePath == ''):
-    filePath = './img/'
+# runs when 'Start' button is pushed
+def run():
+    filePath = app.getEntry('directory') # get chosen directory
+    if(filePath != ''):
+        app.setLabel('status','Running...') # indicate the program is running
+        app.setLabelBg('status', 'red') 
 
-gpix.countPix(filePath).writeCsv()
+        app.threadCallback(runAnalysis, finished, filePath)
 
-print('Done!')
+def finished(success):   # show the program has finished
+    app.queueFunction(app.setLabel, 'status', 'Done!') 
+    app.queueFunction(app.setLabelBg, 'status', 'green')
+
+def runAnalysis(filePath):
+    gpix.countPix(filePath).writeCsv() # run the analysis and save the summary CSV
+    print('Done!')
+    pass
+
+app.addLabel('status','Please Choose a Directory')
+app.addDirectoryEntry('directory')
+app.addButton('Run Analysis', run)
+
+app.go() # launch GUI

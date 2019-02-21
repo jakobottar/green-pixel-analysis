@@ -5,12 +5,17 @@ import os
 import re
 import csv
 
+# Object to store image summary data and write to CSV
 class ImageSummary:
-    def __init__( self ):
+    # store summary data
+    def __init__( self ): 
         self.sumData = []
 
-    def writeCsv( self, loc = ".." ):
-        os.chdir(loc)
+    # write sumData to CSV
+    # location sets the save location for the csv.
+    # By default it uses the parent directory
+    def writeCsv( self, location = ".." ): 
+        os.chdir(location)
 
         print('Writing CSV...')
 
@@ -22,12 +27,14 @@ class ImageSummary:
         for i in self.sumData:
             c.writerow([i['imgName'], i['greenTot'], i['percOfWhole']])
     
+    # overload append() to add data to stored array
     def append( self, data ):
         self.sumData.append(data)
 
 def countPix( folderLoc, save = False ):
     # change directory to chosen folder 
     os.chdir(folderLoc)
+    print("Looking in folder: " + folderLoc)
 
     # get files from the chosen folder
     files = os.listdir()
@@ -43,7 +50,7 @@ def countPix( folderLoc, save = False ):
             print('')
             imgSum.append(_analyzeImage_(files[i], save)) # analyze each file, store in object
     
-    return(imgSum)
+    return(imgSum) 
 
 # TODO: Check Speed of PIL Image.eval()
 def _analyzeImage_( fileName , save = False ):
@@ -77,6 +84,10 @@ def _analyzeImage_( fileName , save = False ):
         'percOfWhole': green / (im.width * im.height)
     })
 
+# check if image is a valid image filetype and
+# if the image has not already been analyzed (No -ANALYZED.jpg images)
+# Note: This will still break if a non-image file is passed in with the .jpg
+# or .png extension. Need to fix later. 
 def _isValidImageFile_( fileName ):
     if(re.match(r'.*-ANALYZED\.jpg', fileName) != None):
         return(False)
