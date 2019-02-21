@@ -9,7 +9,7 @@ class ImageSummary:
     def __init__( self ):
         self.sumData = []
 
-    def makeCsv( self, loc = ".." ):
+    def writeCsv( self, loc = ".." ):
         os.chdir(loc)
 
         print('Writing CSV...')
@@ -25,7 +25,7 @@ class ImageSummary:
     def append( self, data ):
         self.sumData.append(data)
 
-def countPixAt( folderLoc ):
+def countPix( folderLoc, save = False ):
     # change directory to chosen folder 
     os.chdir(folderLoc)
 
@@ -37,17 +37,15 @@ def countPixAt( folderLoc ):
 
     for i in range(len(files)):
         print('Analyzing file ' + str(i+1) + ' of ' + str(len(files)) + '... ', end = '')
-        if(re.match(r'.*-ANALYZED\.jpg', files[i]) != None): # skip files that end in '-ANALYZED'
-            print('Skipped.')
-        if(re.match(r'.*\.csv', files[i]) != None):
-            print('CSV file, skipped.')
+        if(not _isValidImageFile_(files[i])): # skip invalid files and files that end in '-ANALYZED'
+            print('Invalid File, Skipped')
         else:
             print('')
-            imgSum.append(analyzeImage(files[i])) # analyze each file, store in object
+            imgSum.append(_analyzeImage_(files[i], save)) # analyze each file, store in object
     
     return(imgSum)
 
-def analyzeImage( fileName , save = False ):
+def _analyzeImage_( fileName , save = False ):
     start = time.time() # start timer
 
     # open image, resize, convert to RGB
@@ -77,3 +75,14 @@ def analyzeImage( fileName , save = False ):
         'greenTot': green,
         'percOfWhole': green / (im.width * im.height)
     })
+
+def _isValidImageFile_( fileName ):
+    if(re.match(r'.*-ANALYZED\.jpg', fileName) != None):
+        return(False)
+
+    extension = os.path.splitext(fileName)[1]
+    checkAgainst = ['.jpg', '.png']
+    if(extension in checkAgainst):
+        return True
+
+    return(False)

@@ -9,6 +9,6 @@ from lib import gpix
 # points to folder containing images
 filePath = './img/'              
 
-gpix.countPixAt(filePath).makeCsv()
+gpix.countPix(filePath).writeCsv()
 
 print('Done!')
