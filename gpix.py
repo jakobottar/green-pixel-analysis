@@ -2,16 +2,37 @@ from PIL import Image   # pip install Pillow, https://pillow.readthedocs.io/en/s
 import numpy as np      # pip install numpy
 import time
 import os
+import re
+import csv
 
-# controls wether or not the image is saved with detected pixels (slower, creates file for each image)
-SAVE = False
+def countPixAt( folderLoc ):
+    # change directory to chosen folder 
+    os.chdir(folderLoc)
 
-def analyzeImage( fileName, BASEPATH):
+    # get files from the chosen folder
+    files = os.listdir()
+
+    # blank array, to hold image data
+    imgSum = [] 
+
+    for i in range(len(files)):
+        print('Analyzing file ' + str(i+1) + ' of ' + str(len(files)) + '... ', end = '')
+        if(re.match(r'.*-ANALYZED\.jpg', files[i]) != None): # skip files that end in '-ANALYZED'
+            print('Skipped.')
+        if(re.match(r'.*\.csv', files[i]) != None):
+            print('CSV file, skipped.')
+        else:
+            print('')
+            imgSum.append(analyzeImage(files[i])) # analyze each file, store in array
+    
+    return(imgSum)
+
+def analyzeImage( fileName , save = False):
     start = time.time() # start timer
 
     # open image, resize, convert to RGB
     # we resize every image to the same size to remove zoom/crop effects on image size
-    im = Image.open(BASEPATH + fileName).resize((2000, 1500)).convert('RGB') # total pixels = 3,000,000
+    im = Image.open(fileName).resize((2000, 1500)).convert('RGB') # total pixels = 3,000,000
     # convert to numpy array for faster analysis
     arr = np.array(im)
 
@@ -21,14 +42,14 @@ def analyzeImage( fileName, BASEPATH):
             p = arr[y][x]                                   # get pixel at (x,y) location
             if( p[1] > p[0] and p[1] > p[2]) :              # if the pixel is majority green,
                 green += 1                                  # count it as a green pixel
-                if(SAVE): im.putpixel((x,y), (255, 0, 0))   # replace the pixel with a red one, indicating it was detected as green
+                if(save): im.putpixel((x,y), (255, 0, 0))   # replace the pixel with a red one, indicating it was detected as green
 
     imgName = os.path.splitext(fileName)[0]
     # save image with detected pixels next to original image
-    if(SAVE): im.save(BASEPATH + imgName + "-ANALYZED.jpg") 
+    if(save): im.save(imgName + "-ANALYZED.jpg") 
 
     end = time.time() # end timer
-    print("File " + fileName + " analyzed in " + str(end-start) + " sec.") # print time elapsed
+    print("Completed in " + str(end-start) + " sec.") # print time elapsed
 
     # return info about the image as a json object
     return({                                    
@@ -36,3 +57,14 @@ def analyzeImage( fileName, BASEPATH):
         'greenTot': green,
         'percOfWhole': green / (im.width * im.height)
     })
+
+def makeCsv( imgSum , loc = ".."):
+    os.chdir(loc)
+
+    # create csv and write header row
+    c = csv.writer(open('image-summary.csv', 'w'), lineterminator='\n')
+    c.writerow(['Image Name', 'Total Green Pixels', 'Percent of Total']) 
+
+    # write a row for each image analyzed
+    for i in imgSum:
+        c.writerow([i['imgName'], i['greenTot'], i['percOfWhole']])
