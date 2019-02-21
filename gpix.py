@@ -5,6 +5,26 @@ import os
 import re
 import csv
 
+class ImageSummary:
+    def __init__( self ):
+        self.sumData = []
+
+    def makeCsv( self, loc = ".." ):
+        os.chdir(loc)
+
+        print('Writing CSV...')
+
+        # create csv and write header row
+        c = csv.writer(open('image-summary.csv', 'w'), lineterminator='\n')
+        c.writerow(['Image Name', 'Total Green Pixels', 'Percent of Total']) 
+
+        # write a row for each image analyzed
+        for i in self.sumData:
+            c.writerow([i['imgName'], i['greenTot'], i['percOfWhole']])
+    
+    def append( self, data ):
+        self.sumData.append(data)
+
 def countPixAt( folderLoc ):
     # change directory to chosen folder 
     os.chdir(folderLoc)
@@ -12,8 +32,8 @@ def countPixAt( folderLoc ):
     # get files from the chosen folder
     files = os.listdir()
 
-    # blank array, to hold image data
-    imgSum = [] 
+    # blank ImageSummary object, to hold image data
+    imgSum = ImageSummary()
 
     for i in range(len(files)):
         print('Analyzing file ' + str(i+1) + ' of ' + str(len(files)) + '... ', end = '')
@@ -23,11 +43,11 @@ def countPixAt( folderLoc ):
             print('CSV file, skipped.')
         else:
             print('')
-            imgSum.append(analyzeImage(files[i])) # analyze each file, store in array
+            imgSum.append(analyzeImage(files[i])) # analyze each file, store in object
     
     return(imgSum)
 
-def analyzeImage( fileName , save = False):
+def analyzeImage( fileName , save = False ):
     start = time.time() # start timer
 
     # open image, resize, convert to RGB
@@ -57,14 +77,3 @@ def analyzeImage( fileName , save = False):
         'greenTot': green,
         'percOfWhole': green / (im.width * im.height)
     })
-
-def makeCsv( imgSum , loc = ".."):
-    os.chdir(loc)
-
-    # create csv and write header row
-    c = csv.writer(open('image-summary.csv', 'w'), lineterminator='\n')
-    c.writerow(['Image Name', 'Total Green Pixels', 'Percent of Total']) 
-
-    # write a row for each image analyzed
-    for i in imgSum:
-        c.writerow([i['imgName'], i['greenTot'], i['percOfWhole']])
