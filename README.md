@@ -12,6 +12,8 @@ Download the zip folder, install `numpy` and `Pillow` using the command line thr
 pip install numpy
 pip install Pillow
 ```
+If `pip` is not installed, install it here: https://pip.pypa.io/en/stable/installing/#installing-with-get-pip-py.
+
 Click on the `start.bat` file to launch the application.
 Select a directory in the popup window and click 'Run Analysis'. 
 The terminal window gives information about the running program.
@@ -22,6 +24,8 @@ Download the zip folder, install `numpy` and `Pillow` through
 pip install numpy
 pip install Pillow
 ```
+If `pip` is not installed, install it here: https://pip.pypa.io/en/stable/installing/#installing-with-get-pip-py.
+
 Then run the program with 
 ``` python /path/to/file/main.py ```
 Select a directory in the popup window and click 'Run Analysis'. 
