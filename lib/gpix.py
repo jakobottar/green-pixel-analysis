@@ -66,7 +66,7 @@ def _analyzeImage_( fileName , save = False ):
     for x in range(im.width):                               # loop over all pixels in image
         for y in range(im.height):
             p = arr[y][x]                                   # get pixel at (x,y) location
-            if( p[1] > p[0] and p[1] > p[2]) :              # if the pixel is majority green,
+            if(_isGreen_(p)) :                              # if the pixel is green,
                 green += 1                                  # count it as a green pixel
                 if(save): im.putpixel((x,y), (255, 0, 0))   # replace the pixel with a red one, indicating it was detected as green
 
@@ -98,3 +98,9 @@ def _isValidImageFile_( fileName ):
         return True
 
     return(False)
+
+# check if the pixel is green
+# very basic right now, broken out for future work
+# TODO: include "fuzz factor"
+def _isGreen_ (pixel):
+    return(pixel[1] > pixel[0] and pixel[1] > pixel[2])
