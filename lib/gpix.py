@@ -103,4 +103,6 @@ def _isValidImageFile_( fileName ):
 # very basic right now, broken out for future work
 # TODO: include "fuzz factor"
 def _isGreen_ (pixel):
-    return(pixel[1] > pixel[0] and pixel[1] > pixel[2])
+    pixel[0] += 10
+    pixel[2] += 10
+    return( pixel[1] > pixel[0] and pixel[1] > pixel[2] )
