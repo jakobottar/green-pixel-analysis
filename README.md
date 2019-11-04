@@ -14,7 +14,10 @@ pip install Pillow
 ```
 If `pip` is not installed, install it here: https://pip.pypa.io/en/stable/installing/#installing-with-get-pip-py.
 
-Click on the `start.bat` file to launch the application.
+Then run the program with 
+``` 
+python /path/to/file/main.py 
+```
 Select a directory in the popup window and click 'Run Analysis'. 
 The terminal window gives information about the running program.
 
@@ -27,7 +30,9 @@ pip install Pillow
 If `pip` is not installed, install it here: https://pip.pypa.io/en/stable/installing/#installing-with-get-pip-py.
 
 Then run the program with 
-``` python /path/to/file/main.py ```
+``` 
+python3 /path/to/file/main.py 
+```
 Select a directory in the popup window and click 'Run Analysis'. 
 The terminal window gives information about the running program.
 
@@ -36,18 +41,18 @@ Follow the above steps to install the dependencies, then in your python program,
 ```
 gpix.countPix('file/pathto/images', save = T/F).writeCsv('/dir/to/write/to/')
 ```
-`countPix()` returns an object that contains summary imformation about the analyzed photos. Run the `.writeCsv()` method to export the stored data as a `.csv` file.
+`countPix()` returns an object that contains summary information about the analyzed photos. Run its `.writeCsv()` method to export the stored data as a `.csv` file.
 
 ## Example
 
-Reading the file `White 350 Nov 27.jpg`,
-![image](https://user-images.githubusercontent.com/33588648/53047090-d2c91e00-344e-11e9-869f-530fbb6b4cf1.png)
-returns the image `White 350 Nov 27-ANALYZED.jpg`,
-![image](https://user-images.githubusercontent.com/33588648/53047115-e7a5b180-344e-11e9-8c4f-dd3ef7a60f0c.png)
+Reading the file `RB 300 FR 50 June 6 630pm.jpg`,
+![image](https://raw.githubusercontent.com/jakobottar/green-pixel-analysis/master/test-img/RB%20300%20FR%2050%20June%206%20630pm.jpg)
+returns the image `RB 300 FR 50 June 6 630pm-ANALYZED.jpg`,
+![image](https://raw.githubusercontent.com/jakobottar/green-pixel-analysis/master/test-img/RB%20300%20FR%2050%20June%206%20630pm-ANALYZED.jpg)
 and the summary statistics,
 
 | Image Name | Total Green Pixels |	Percent of Total |
 | --- | --- | --- |
-| White 350 Nov 27 | 2285096 | 0.72085047 |
+| RB 300 FR 50 June 6 630pm | 940635 | 0.313545 |
 
 On a second pass, the program will ignore the `*-ANALYZED.jpg` file and overwrite the csv table.
