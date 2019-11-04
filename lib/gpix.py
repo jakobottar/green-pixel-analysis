@@ -52,7 +52,6 @@ def countPix( folderLoc, save = False ):
     
     return(imgSum) 
 
-# TODO: Check Speed of PIL Image.eval()
 def _analyzeImage_( fileName , save = False ):
     start = time.time() # start timer
 
@@ -101,6 +100,5 @@ def _isValidImageFile_( fileName ):
 
 # check if the pixel is green
 # very basic right now, broken out for future work
-# TODO: include "fuzz factor"
 def _isGreen_ (pixel):
     return(pixel[1] > pixel[0] and pixel[1] > pixel[2])
