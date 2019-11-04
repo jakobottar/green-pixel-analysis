@@ -14,7 +14,7 @@ class ImageSummary:
     # write sumData to CSV
     # location sets the save location for the csv.
     # By default it uses the parent directory
-    def writeCsv( self, location = ".." ): 
+    def writeCsv( self, location = "." ): 
         os.chdir(location)
 
         print('Writing CSV...')
@@ -52,22 +52,26 @@ def countPix( folderLoc, save = False ):
     
     return(imgSum) 
 
-def _analyzeImage_( fileName , save = False ):
+def _analyzeImage_( fileName , save = False, greenFuzz = 10):
     start = time.time() # start timer
 
     # open image, resize, convert to RGB
     # we resize every image to the same size to remove zoom/crop effects on image size
     im = Image.open(fileName).resize((2000, 1500)).convert('RGB') # total pixels = 3,000,000
-    # convert to numpy array for faster analysis
-    arr = np.array(im)
+    # get bands, convert to numpy arrays for faster analysis
+    rBand = np.array(im.getdata(band=0)) + greenFuzz
+    gBand = np.array(im.getdata(band=1))
+    bBand = np.array(im.getdata(band=2)) + greenFuzz
 
     green = 0                                               # initialize green pixel counter
-    for x in range(im.width):                               # loop over all pixels in image
-        for y in range(im.height):
-            p = arr[y][x]                                   # get pixel at (x,y) location
-            if(_isGreen_(p)) :                              # if the pixel is green,
-                green += 1                                  # count it as a green pixel
-                if(save): im.putpixel((x,y), (255, 0, 0))   # replace the pixel with a red one, indicating it was detected as green
+    for i in range(im.width*im.height):                     # get pixel at (x,y) location
+        p = [ rBand[i], gBand[i], bBand[i] ]
+        if(_isGreen_(p)):                                   # if the pixel is green,
+            green += 1                                      # count it as a green pixel
+            if(save): 
+                x = i % im.width
+                y = int(i / im.width)
+                im.putpixel((x,y), (255, 0, 0))   # replace the pixel with a red one, indicating it was detected as green
 
     imgName = os.path.splitext(fileName)[0]
     # save image with detected pixels next to original image

@@ -24,7 +24,7 @@ def finished(success):   # show the program has finished
     app.queueFunction(app.setLabelBg, 'status', 'green')
 
 def runAnalysis(filePath):
-    gpix.countPix(filePath).writeCsv() # run the analysis and save the summary CSV
+    gpix.countPix(filePath, True).writeCsv() # run the analysis and save the summary CSV
     print('Done!')
     pass
 
