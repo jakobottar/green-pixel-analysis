@@ -31,10 +31,12 @@ class ImageSummary:
     def append( self, data ):
         self.sumData.append(data)
 
-def countPix( folderLoc, save = False ):
+def countPix( folderLoc, save, fuzzFactor ):
     # change directory to chosen folder 
     os.chdir(folderLoc)
     print("Looking in folder: " + folderLoc)
+
+    print("Fuzz = " + str(fuzzFactor))
 
     # get files from the chosen folder
     files = os.listdir()
@@ -48,11 +50,11 @@ def countPix( folderLoc, save = False ):
             print('Invalid File, Skipped')
         else:
             print('')
-            imgSum.append(_analyzeImage_(files[i], save)) # analyze each file, store in object
+            imgSum.append(_analyzeImage_(files[i], save, fuzzFactor)) # analyze each file, store in object
     
     return(imgSum) 
 
-def _analyzeImage_( fileName , save = False, greenFuzz = 10):
+def _analyzeImage_( fileName , save, greenFuzz ):
     start = time.time() # start timer
 
     # open image, resize, convert to RGB

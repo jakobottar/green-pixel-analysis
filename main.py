@@ -24,12 +24,23 @@ def finished(success):   # show the program has finished
     app.queueFunction(app.setLabelBg, 'status', 'green')
 
 def runAnalysis(filePath):
-    gpix.countPix(filePath, True).writeCsv() # run the analysis and save the summary CSV
+    gpix.countPix(filePath, 
+        app.getCheckBox('Create Analyzed Images'),
+        app.getScale('Fuzz Factor')).writeCsv() # run the analysis and save the summary CSV
     print('Done!')
     pass
 
 app.addLabel('status','Please Choose a Directory')
 app.addDirectoryEntry('directory')
-app.addButton('Run Analysis', run)
 
+app.addButton('Run Analysis', run)
+app.addCheckBox('Create Analyzed Images')
+
+app.addLabelScale('Fuzz Factor')
+app.setScaleRange('Fuzz Factor', start=0, end=50)
+app.setScale('Fuzz Factor', 10)
+app.showScaleValue('Fuzz Factor', show=True)
+
+app.setTitle('Green Pixel Analyzer')
+app.setSize(350,200)
 app.go() # launch GUI
