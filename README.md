@@ -6,40 +6,30 @@ The image files in `test-img` are given as sample images to demonstrate the code
 
 ## Usage
 Requires Python 3.x.x
-### Windows
-Download the zip folder, install `numpy` and `Pillow` using the command line through
+
+Download the zip folder, install `numpy` and `Pillow` using PowerShell/Terminal with the commands
 ```
 pip install numpy
 pip install Pillow
 ```
-If `pip` is not installed, install it here: https://pip.pypa.io/en/stable/installing/#installing-with-get-pip-py.
-
-Then run the program with 
-``` 
-python /path/to/file/main.py 
+To run the program, either open `main.py` with Python or in PowerShell/Terminal using 
 ```
+python `.\path\to\directory\main.py`
+```
+*Note, for macOS you'll need to use `python3` instead of `python`*
+
 Select a directory in the popup window and click 'Run Analysis'. 
 The terminal window gives information about the running program.
 
-### Mac/Linux
-Download the zip folder, install `numpy` and `Pillow` through 
-```
-pip install numpy
-pip install Pillow
-```
-If `pip` is not installed, install it here: https://pip.pypa.io/en/stable/installing/#installing-with-get-pip-py.
+The "Create Analyzed Images" checkbox lets you save an image showing where the program detected green pixels. This option slows down analysis.
 
-Then run the program with 
-``` 
-python3 /path/to/file/main.py 
-```
-Select a directory in the popup window and click 'Run Analysis'. 
-The terminal window gives information about the running program.
+The "Fuzz Factor" slider determines the algorithm's green sensitivity. Increase it if necessary to eliminate background noise. 
+
 
 ### Without GUI
 Follow the above steps to install the dependencies, then in your python program, import the `gpix.py` file and run the analysis with 
 ```
-gpix.countPix('file/pathto/images', save = T/F).writeCsv('/dir/to/write/to/')
+gpix.countPix('file/path/to/images', save = T/F).writeCsv('/dir/to/write/to/')
 ```
 `countPix()` returns an object that contains summary information about the analyzed photos. Run its `.writeCsv()` method to export the stored data as a `.csv` file.
 
