@@ -7,7 +7,8 @@ The image files in `test-img` are given as sample images to demonstrate the code
 ## Usage
 Requires Python 3.x.x
 
-Download the zip folder, install `numpy` and `Pillow` using PowerShell/Terminal with the commands
+### GUI in Windows/macOS
+Install dependancies `numpy` and `Pillow` using PowerShell/Terminal with the commands
 ```
 pip install numpy
 pip install Pillow
@@ -21,9 +22,9 @@ python `.\path\to\directory\main.py`
 Select a directory in the popup window and click 'Run Analysis'. 
 The terminal window gives information about the running program.
 
-The "Create Analyzed Images" checkbox lets you save an image showing where the program detected green pixels. This option slows down analysis.
+The 'Create Analyzed Images' checkbox lets you save an image showing where the program detected green pixels. This option slows down analysis.
 
-The "Fuzz Factor" slider determines the algorithm's green sensitivity. Increase it if necessary to eliminate background noise. 
+The 'Fuzz Factor' slider determines the algorithm's green sensitivity. Increase it if necessary to eliminate background noise. 
 
 
 ### Without GUI
