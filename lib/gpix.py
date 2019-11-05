@@ -5,6 +5,8 @@ import os
 import re
 import csv
 
+# TODO: handle errors from missing packages
+
 # Object to store image summary data and write to CSV
 class ImageSummary:
     # store summary data
