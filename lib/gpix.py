@@ -1,9 +1,18 @@
-from PIL import Image   # pip install Pillow, https://pillow.readthedocs.io/en/stable/
-import numpy as np      # pip install numpy
+try:
+    from PIL import Image # https://pillow.readthedocs.io/en/stable/
+except ImportError:
+    print("ERROR: You don't have the Pillow package installed. Install it with 'pip install Pillow'")
+
+try:
+    import numpy as np
+except ImportError:
+    print("You don't have the numpy package installed. Install it with 'pip install numpy'")
+
 import time
 import os
 import re
 import csv
+
 
 # TODO: handle errors from missing packages
 
