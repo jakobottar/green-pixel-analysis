@@ -1,4 +1,4 @@
-Written by [Jakob Johnson](mailto:jakob.johnson@usu.edu) for the [USU Crop Physiology Laboratory](https://cpl.usu.edu/).
+Written by [Jakob Johnson](https://jakobj.dev) for the [USU Crop Physiology Laboratory](https://cpl.usu.edu/).
 
 This program analyzes images and counts the number of green pixels in the image. It reads image files from the chosen directory and outputs a csv containing summary information to the parent directory. 
 
