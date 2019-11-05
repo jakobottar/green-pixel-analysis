@@ -29,7 +29,7 @@ The "Fuzz Factor" slider determines the algorithm's green sensitivity. Increase 
 ### Without GUI
 Follow the above steps to install the dependencies, then in your python program, import the `gpix.py` file and run the analysis with 
 ```
-gpix.countPix('file/path/to/images', save = T/F).writeCsv('/dir/to/write/to/')
+gpix.countPix('file/path/to/images', save = T/F, fuzzFactor).writeCsv('/dir/to/write/to/')
 ```
 `countPix()` returns an object that contains summary information about the analyzed photos. Run its `.writeCsv()` method to export the stored data as a `.csv` file.
 
