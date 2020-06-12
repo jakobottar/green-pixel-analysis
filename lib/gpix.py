@@ -105,7 +105,7 @@ def _isValidImageFile_( fileName ):
     if(re.match(r'.*-ANALYZED\.jpg', fileName) != None):
         return(False)
 
-    extension = os.path.splitext(fileName)[1]
+    extension = os.path.splitext(fileName)[1].lower()
     checkAgainst = ['.jpg', '.png']
     if(extension in checkAgainst):
         return True
