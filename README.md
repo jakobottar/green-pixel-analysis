@@ -4,6 +4,8 @@ This program analyzes images and counts the number of green pixels in the image.
 
 The image files in `test-img` are given as sample images to demonstrate the code. 
 
+Used in ["Substituting Far-Red for Traditionally Defined Photosynthetic Photons Results in Equal Canopy Quantum Yield for CO2 Fixation and Increased Photon Capture During Long-Term Studies: Implications for Re-Defining PAR"](https://www.frontiersin.org/articles/10.3389/fpls.2020.581156/full) by Shuyang Zhen and Bruce Bugbee
+
 ## Usage
 Requires Python 3.x.x
 
